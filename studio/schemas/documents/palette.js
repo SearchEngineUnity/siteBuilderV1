@@ -48,14 +48,14 @@ export default {
   fields: [
     {
       name: 'black',
-      title: 'Common Black Color Setting',
+      title: 'Common Dark Color Setting',
       type: 'reference',
       to: [{ type: 'colorOption' }],
       fieldset: 'common',
     },
     {
       name: 'white',
-      title: 'Common White Color Setting',
+      title: 'Common Light Color Setting',
       type: 'reference',
       to: [{ type: 'colorOption' }],
       fieldset: 'common',
@@ -87,6 +87,12 @@ export default {
       type: 'reference',
       to: [{ type: 'colorOption' }],
       fieldset: 'text',
+    },
+    {
+      name: 'divider',
+      title: 'Divider Color Setting',
+      type: 'reference',
+      to: [{ type: 'colorOption' }],
     },
     {
       name: 'paper',
@@ -145,12 +151,6 @@ export default {
       title: 'Warning Highlight Box',
       type: 'hlbColorSet',
       fieldset: 'highlightBox',
-    },
-    {
-      name: 'divider',
-      title: 'Divider Color Setting',
-      type: 'reference',
-      to: [{ type: 'colorOption' }],
     },
   ],
   preview: {

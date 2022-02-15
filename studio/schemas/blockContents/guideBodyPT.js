@@ -10,7 +10,7 @@ import JumpLinkRenderer from '../components/previews/JumpLinkRenderer';
 
 export default {
   title: 'Block Content',
-  name: 'spGuideBlockContent',
+  name: 'guideBodyPT',
   type: 'array',
   of: [
     {

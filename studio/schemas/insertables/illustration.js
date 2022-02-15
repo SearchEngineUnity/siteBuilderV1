@@ -1,3 +1,4 @@
+// This is a type "Illustration"
 export default {
   name: 'illustration',
   title: 'Illustration',
@@ -28,7 +29,7 @@ export default {
         ],
         layout: 'radio',
         direction: 'horizontal',
-        isHighlighted: true, // <-- make this field easily accessible
+        // isHighlighted: true, // <-- make this field easily accessible
       },
       initialValue: 'center',
     },
@@ -54,9 +55,9 @@ export default {
       name: 'caption',
       type: 'text',
       title: 'Caption',
-      options: {
-        isHighlighted: true, // <-- make this field easily accessible
-      },
+      // options: {
+      //   // isHighlighted: true, // <-- make this field easily accessible
+      // },
     },
   ],
   preview: {

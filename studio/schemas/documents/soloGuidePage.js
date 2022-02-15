@@ -161,7 +161,7 @@ export default {
     },
     {
       name: 'guideBody',
-      type: 'spGuideBlockContent',
+      type: 'guideBodyPT',
       title: 'Guide Content Body',
       fieldset: 'mainContent',
       validation: (Rule) => [Rule.required().error('Field is required')],
@@ -195,12 +195,12 @@ export default {
       title: 'Canonical URL',
       type: 'url',
       fieldset: 'indexing',
-      description: 'Fill in to replace default self canonical tag.',
+      description: 'Fill in to replace default self canonical URL.',
     },
   ],
   preview: {
     select: {
-      title: 'h1',
+      title: 'shortLabel',
       slug: 'slug.current',
       media: 'tileImage',
       fbImg: 'facebookShareMetaPack.image',
