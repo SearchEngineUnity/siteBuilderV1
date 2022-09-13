@@ -23,11 +23,14 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '770px',
   },
   paper: {
-    width: 800,
+    display: 'flex',
+    width: '50vw',
+    height: '50vh',
     backgroundColor: theme.palette.background.paper,
     border: 'none',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    justifyContent: 'center',
   },
   imageBackdrop: {
     position: 'absolute',
@@ -176,7 +179,7 @@ function ProductCard({
   const imageData = getGatsbyImageData(
     image,
     {
-      layout: 'fullWidth',
+      layout: 'constrained',
     },
     sanityConfig,
   );
@@ -201,7 +204,8 @@ function ProductCard({
                   <GatsbyImage
                     image={imageData}
                     alt={image?.alt}
-                    style={{ width: '100%', height: 'auto' }}
+                    style={{ display: 'block', maxWidth: '100%', maxHeight: '300px' }}
+                    objectFit="contain"
                   />
                   <span className={classes.imageBackdrop}>
                     <ZoomInIcon style={{ fontSize: '120px' }} />
@@ -216,7 +220,12 @@ function ProductCard({
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
                   <div className={classes.paper}>
-                    <GatsbyImage image={imageData} alt={image?.alt} />
+                    <GatsbyImage
+                      image={imageData}
+                      alt={image?.alt}
+                      objectFit="contain"
+                      style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
+                    />
                   </div>
                 </Modal>
               </div>

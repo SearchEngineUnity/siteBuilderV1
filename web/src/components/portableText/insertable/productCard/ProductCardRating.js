@@ -71,7 +71,11 @@ function ProductCardRating({ rating }) {
   return (
     <>
       <img src={starRating} alt="star-rating" height="24px" style={{ verticalAlign: 'middle' }} />
-      <Box component="span" px={1} style={{ verticalAlign: 'middle' }}>{`${rating}`}</Box>
+      <Box
+        component="span"
+        px={1}
+        style={{ verticalAlign: 'middle', fontSize: '20px' }}
+      >{`${rating}`}</Box>
     </>
   );
 }
