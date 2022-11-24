@@ -1,15 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import Subtitle from '../portableText/serializer/H1SubtitleSerializer';
-
-const useStyles = makeStyles((theme) => ({
-  header: {
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: 16,
-    },
-  },
-}));
 
 function StructuredSectionHeader({
   heading,
@@ -23,19 +14,12 @@ function StructuredSectionHeader({
   hasSectionSubheading,
   hasSectionSubtitle,
 }) {
-  const classes = useStyles();
-
   return (
     <>
       {(!hasSectionHeading && heading) ||
       (!hasSectionSubheading && subheading) ||
       (!hasSectionSubtitle && subtitle) ? (
-        <Box
-          component={heading ? 'header' : 'div'}
-          mb={4}
-          textAlign={align}
-          className={classes.header}
-        >
+        <Box component={heading ? 'header' : 'div'} mb={{ xs: 2, sm: 4 }} textAlign={align}>
           {!hasSectionHeading && heading && (
             <Box component={Typography} variant="h1" gutterBottom color={headingColor}>
               {heading}

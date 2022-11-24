@@ -27,6 +27,14 @@ const ThemeProvider = ({ children, data }) => {
           fontWeight: 600,
         },
       },
+      MuiTypography: {
+        gutterBottom: {
+          marginBottom: '0.8125em',
+          '&:last-child': {
+            marginBottom: '0px',
+          },
+        },
+      },
     },
     palette: {
       common: {

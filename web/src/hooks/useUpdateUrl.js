@@ -29,4 +29,6 @@ export function useUpdateUrl() {
 
     return () => observer.current?.disconnect();
   }, []);
+
+  return null;
 }

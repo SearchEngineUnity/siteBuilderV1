@@ -51,7 +51,7 @@ function FormNetlify({ titleAlignment, heading, headingLevel, form, style }) {
     selectorColor,
   } = style;
 
-  const { formFields, name, thankYou, submitBtn } = form;
+  const { formFields, name, subject, thankYou, submitBtn } = form;
 
   const prevTheme = useTheme();
 
@@ -217,6 +217,8 @@ function FormNetlify({ titleAlignment, heading, headingLevel, form, style }) {
         body: encode({
           'form-name': thisForm.getAttribute('name'),
           'bot-field': thisForm.elements['bot-field'].value,
+          // eslint-disable-next-line dot-notation
+          subject: thisForm.elements['subject'].value,
           ...state,
         }),
       })
@@ -251,6 +253,7 @@ function FormNetlify({ titleAlignment, heading, headingLevel, form, style }) {
           name={name}
           method="POST"
           data-netlify="true"
+          // eslint-disable-next-line react/no-unknown-property
           netlify-honeypot="bot-field"
           noValidate
           onSubmit={handleSubmit}
@@ -268,6 +271,7 @@ function FormNetlify({ titleAlignment, heading, headingLevel, form, style }) {
           {success && <p>{thankYou}</p>}
 
           <input type="hidden" name="form-name" value={name} />
+          {subject && <input type="hidden" name="subject" value={subject} />}
           {formFields.map((input) => {
             const { _type, _key } = input;
 
@@ -403,7 +407,7 @@ function FormNetlify({ titleAlignment, heading, headingLevel, form, style }) {
                       required={input.required}
                       variant={variant}
                       multiline
-                      rows={input.rows}
+                      minRows={input.rows}
                       placeholder={input.placeholderText}
                       onBlur={(e) => fieldValidation(e.currentTarget)}
                     />

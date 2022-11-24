@@ -50,15 +50,6 @@ module.exports = {
         // selfHostedOrigin: 'YOUR_SELF_HOSTED_ORIGIN',
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-google-gtag`,
-    //   options: {
-    //     // You can add multiple tracking ids and a pageview event will be fired for all of them.
-    //     trackingIds: [
-    //       '', // Google Analytics / GA
-    //     ],
-    //   },
-    // },
     {
       resolve: 'gatsby-plugin-html-attributes',
       options: {
@@ -72,14 +63,11 @@ module.exports = {
           fonts: {
             google: [
               {
-                family: `Lobster`,
-              },
-              {
                 family: `Material+Icons`,
               },
               {
                 family: `Roboto`,
-                variants: [`100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`],
+                variants: [`100`, `300`, `400`, `500`, `700`, `900`],
               },
             ],
           },
@@ -98,7 +86,13 @@ module.exports = {
     },
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sitemap',
+    'gatsby-plugin-remove-trailing-slashes',
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        excludes: ['/privacy-policy', '/resources/*'],
+      },
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -112,6 +106,17 @@ module.exports = {
         path: './src/images/',
       },
       __key: 'images',
+    },
+    {
+      resolve: `gatsby-plugin-netlify`,
+      // options: {
+      //   headers: {}, // option to add more headers. `Link` headers are transformed by the below criteria
+      //   allPageHeaders: [], // option to add headers for all pages. `Link` headers are transformed by the below criteria
+      //   mergeSecurityHeaders: true, // boolean to turn off the default security headers
+      //   mergeCachingHeaders: true, // boolean to turn off the default caching headers
+      //   transformHeaders: (headers, path) => headers, // optional transform for manipulating headers under each path (e.g.sorting), etc.
+      //   generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
+      // },
     },
     {
       resolve: `gatsby-plugin-sharp`,

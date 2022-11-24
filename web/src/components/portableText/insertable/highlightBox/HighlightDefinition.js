@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   icon: {
+    alignSelf: 'center',
     color: theme.palette.hlBox.definition.iconColor,
   },
   text: {
@@ -24,9 +25,18 @@ function HighlightDefinition({ blockContent, id }) {
   const classes = useStyles();
   return (
     <Box component={Paper} variant="outlined" key={id} className={classes.root} p={2}>
-      <Typography component="p" variant="h4" className={classes.text}>
-        <MenuBook className={classes.icon} /> Definition
-      </Typography>
+      <Box display="inline-flex" mb="0.8125em">
+        <MenuBook className={classes.icon} />
+        <Typography
+          component="p"
+          variant="h4"
+          className={classes.text}
+          style={{ marginLeft: '8px' }}
+        >
+          Definition
+        </Typography>
+      </Box>
+
       <div className={classes.text}>
         <TextContent blocks={blockContent} />
       </div>

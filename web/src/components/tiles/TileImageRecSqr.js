@@ -21,7 +21,7 @@ function TileImageRecSqr({ image, alt, link }) {
   return (
     <Card square elevation={link ? 8 : 0}>
       <ConditionalCardActionArea condition={linkType} link={link}>
-        <GatsbyImage image={imageData} alt={alt} />
+        <GatsbyImage image={imageData} alt={alt || ''} />
       </ConditionalCardActionArea>
     </Card>
   );

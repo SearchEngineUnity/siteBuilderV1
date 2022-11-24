@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   icon: {
+    alignSelf: 'center',
     color: theme.palette.hlBox.important.iconColor,
   },
   text: {
@@ -27,9 +28,18 @@ function HighlightImportant({ blockContent, id }) {
   const classes = useStyles();
   return (
     <Box component={Paper} variant="outlined" key={id} className={classes.root} p={2}>
-      <Typography component="p" variant="h4" className={classes.text}>
-        <ErrorOutlineOutlined className={classes.icon} /> Important
-      </Typography>
+      <Box display="inline-flex" mb="0.8125em">
+        <ErrorOutlineOutlined className={classes.icon} />
+        <Typography
+          component="p"
+          variant="h4"
+          className={classes.text}
+          style={{ marginLeft: '8px' }}
+        >
+          Important
+        </Typography>
+      </Box>
+
       <div className={classes.text}>
         <TextContent blocks={blockContent} />
       </div>

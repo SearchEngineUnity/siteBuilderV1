@@ -65,7 +65,7 @@ function TestimonialImage({ image, alt, name, text, role, company }) {
             {image ? (
               <GatsbyImage
                 image={imageData}
-                alt={alt}
+                alt={alt || ''}
                 style={{ width: '100px', height: '100px', borderRadius: '50px' }}
               />
             ) : (

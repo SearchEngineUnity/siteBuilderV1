@@ -6,6 +6,7 @@ import NavItem from './NavItem';
 import NavGroup from './NavGroup';
 import NavBrand from './NavBrand';
 import NavPhone from './NavPhone';
+import NavClickableImage from './NavClickableImage';
 import MainNavHamburger from './MainNavHamburger';
 import { mapNavBrandToProps, mapNavItemToProps, mapNavGroupToProps } from '../../../lib/mapToProps';
 
@@ -22,7 +23,12 @@ const MainNav = ({ data, location }) => {
   return (
     <>
       {data.sanityNavMenu && (
-        <AppBar position="relative" classes={{ colorDefault: classes.appBar }} color="default">
+        <AppBar
+          position="relative"
+          classes={{ colorDefault: classes.appBar }}
+          color="default"
+          elevation={0}
+        >
           <Container maxWidth="lg" component="nav" aria-label="main navigation header">
             {data.sanityNavMenu.menuArray.map((menuRow, menuIndex) => {
               // menu group is not a navgroup. it is the top level menu item.
@@ -59,6 +65,12 @@ const MainNav = ({ data, location }) => {
                       }
 
                       switch (_type) {
+                        case 'navClickableImage':
+                          return (
+                            <Box py={1} key={groupKey}>
+                              <NavClickableImage image={group.image} link={group.link} />
+                            </Box>
+                          );
                         case 'navBrand':
                           return (
                             <NavBrand
@@ -141,6 +153,63 @@ export default function MainNavigation(props) {
             menuArray {
               _key
               menuGroup {
+                ... on SanityNavClickableImage {
+                  _key
+                  _type
+                  image: _rawImage(resolveReferences: { maxDepth: 10 })
+                  link {
+                    ... on SanityJumpLink {
+                      _key
+                      _type
+                      hashId
+                    }
+                    ... on SanityAffiliateLink {
+                      _key
+                      _type
+                      href
+                    }
+                    ... on SanityExternalLink {
+                      _key
+                      _type
+                      href
+                      newTab
+                      noreferrer
+                    }
+                    ... on SanityInternalGlobal {
+                      _key
+                      _type
+                      href
+                      newTab
+                    }
+                    ... on SanityInternalLocal {
+                      _key
+                      _type
+                      newTab
+                      hashId
+                      parameter
+                      reference {
+                        ... on SanityFlexListingPage {
+                          id
+                          slug {
+                            current
+                          }
+                        }
+                        ... on SanityPage {
+                          id
+                          slug {
+                            current
+                          }
+                        }
+                        ... on SanitySoloGuidePage {
+                          id
+                          slug {
+                            current
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
                 ... on SanityNavBrand {
                   _key
                   _type
@@ -154,6 +223,11 @@ export default function MainNavigation(props) {
                       logo {
                         asset {
                           url
+                          metadata {
+                            dimensions {
+                              aspectRatio
+                            }
+                          }
                         }
                       }
                     }

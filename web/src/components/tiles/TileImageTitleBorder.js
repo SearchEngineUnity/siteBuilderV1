@@ -35,7 +35,7 @@ function TileImageRecSqr({ image, alt, link, title }) {
         <Box pt={2}>
           <GatsbyImage
             image={imageData}
-            alt={alt}
+            alt={alt || ''}
             style={{
               width: '50%',
               height: 'auto',

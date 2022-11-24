@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   icon: {
+    alignSelf: 'center',
     color: theme.palette.hlBox.dyk.iconColor,
   },
   text: {
@@ -27,9 +28,18 @@ function HighlightDidYouKnow({ blockContent, id }) {
   const classes = useStyles();
   return (
     <Box component={Paper} variant="outlined" key={id} className={classes.root} p={2}>
-      <Typography component="p" variant="h4" className={classes.text}>
-        <EmojiObjectsOutlined className={classes.icon} /> Did You Know
-      </Typography>
+      <Box display="inline-flex" mb="0.8125em">
+        <EmojiObjectsOutlined className={classes.icon} />
+        <Typography
+          component="p"
+          variant="h4"
+          className={classes.text}
+          style={{ marginLeft: '8px' }}
+        >
+          Did You Know
+        </Typography>
+      </Box>
+
       <div className={classes.text}>
         <TextContent blocks={blockContent} />
       </div>

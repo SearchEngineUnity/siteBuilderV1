@@ -21,6 +21,7 @@ import { mapMuiBtnToProps } from '../../../lib/mapToProps';
 const StyledTypography = styled(Typography)`
   margin-top: 1.35em;
 `;
+
 const serializers = {
   // This is to render the whole block of content without the <div> tag as wrapping container (https://github.com/sanity-io/block-content-to-react)
   container: (props) => <>{props.children}</>,

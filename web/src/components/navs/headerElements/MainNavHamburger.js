@@ -17,6 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import NavItem from './NavItem';
 import NavPhone from './NavPhone';
 import NavGroup from './NavGroupHamburger';
+import NavClickableImage from './NavClickableImage';
 import { mapNavItemToProps } from '../../../lib/mapToProps';
 
 const useStyles = makeStyles((theme) => ({
@@ -87,7 +88,19 @@ function MainNavHamburger({ topMenu, bottomMenu, brandUrl, location }) {
                   : null;
 
               switch (_type) {
-                case 'navBrand':
+                case 'navClickableImage':
+                  return (
+                    <Box
+                      display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none', xl: 'none' }}
+                      my={1}
+                      key={groupKey}
+                    >
+                      <NavClickableImage image={group.image} link={group.link} />
+                    </Box>
+                  );
+                case 'navBrand': {
+                  const { aspectRatio } = mobileBrand.brand.logo.asset.metadata.dimensions;
+
                   return (
                     <Box
                       display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none', xl: 'none' }}
@@ -98,10 +111,12 @@ function MainNavHamburger({ topMenu, bottomMenu, brandUrl, location }) {
                           src={mobileBrand.brand.logo.asset.url}
                           alt={mobileBrand.brand.title}
                           height={mobileBrand.height}
+                          width={mobileBrand.height * aspectRatio}
                         />
                       </a>
                     </Box>
                   );
+                }
                 case 'navPhone':
                   return <NavPhone text={group.text} key={groupKey} number={group.phoneNumber} />;
                 case 'navItem':
@@ -150,7 +165,7 @@ function MainNavHamburger({ topMenu, bottomMenu, brandUrl, location }) {
                           primaryTypographyProps={
                             location.pathname === `/${groupNav.slug.current}`
                               ? { className: classes.bold }
-                              : false
+                              : {}
                           }
                         />
                       </ListItem>

@@ -31,7 +31,7 @@ function TileImageRecSqr({ image, alt, link, title, text }) {
   return (
     <Card elevation={link ? 8 : 0} classes={{ root: classes.card }} square>
       <ConditionalCardActionArea condition={linkType} link={link}>
-        <GatsbyImage image={imageData} alt={alt} />
+        <GatsbyImage image={imageData} alt={alt || ''} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {title}

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
-import { Link } from 'gatsby-theme-material-ui';
+import { Box, Link } from '@material-ui/core';
 import { StaticQuery, graphql } from 'gatsby';
 
 const ContactInfo = ({ data }) => {
@@ -27,7 +26,7 @@ const ContactInfo = ({ data }) => {
         </Link>
       )}
       {contactInfo.email && (
-        <Link to={`mailto:${contactInfo.email}`} color="inherit">
+        <Link href={`mailto:${contactInfo.email}`} color="inherit">
           {contactInfo.email}
         </Link>
       )}

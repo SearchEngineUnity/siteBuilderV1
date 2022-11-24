@@ -39,7 +39,7 @@ function TileImageRecSqr({ image, alt, url, title, text, date }) {
           <Grid item md={4} sm={3} xs={12}>
             <GatsbyImage
               image={imageData}
-              alt={alt}
+              alt={alt || ''}
               style={{
                 width: '100%',
                 height: '100%',

@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   icon: {
+    alignSelf: 'center',
     color: theme.palette.hlBox.warning.iconColor,
   },
   text: {
@@ -27,9 +28,18 @@ function HighlightWarning({ blockContent, id }) {
   const classes = useStyles();
   return (
     <Box component={Paper} variant="outlined" key={id} className={classes.root} p={2}>
-      <Typography component="p" variant="h4" className={classes.text}>
-        <WarningOutlined className={classes.icon} /> Warning
-      </Typography>
+      <Box display="inline-flex" mb="0.8125em">
+        <WarningOutlined className={classes.icon} />
+        <Typography
+          component="p"
+          variant="h4"
+          className={classes.text}
+          style={{ marginLeft: '8px' }}
+        >
+          Warning
+        </Typography>
+      </Box>
+
       <div className={classes.text}>
         <TextContent blocks={blockContent} />
       </div>

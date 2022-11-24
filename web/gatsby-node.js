@@ -83,6 +83,7 @@ async function createFlexListingPages(actions, graphql) {
         actions.createPage({
           path: i === 0 ? `/${page.node.slug.current}` : `${page.node.slug.current}/${i + 1}`,
           component: path.resolve(`./src/templates/flexListingPage.js`),
+          ownerNodeId: page.node.id,
           context: {
             listItemType,
             limit: numPerPage,

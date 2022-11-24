@@ -67,7 +67,7 @@ function TestimonialGrid({
             }
           };
           return (
-            <Grid item key={testimonialList._key} {...col}>
+            <Grid item key={testimonial._id} {...col}>
               {tileSelector(tileOption)}
             </Grid>
           );

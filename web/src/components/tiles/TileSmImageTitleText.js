@@ -39,7 +39,7 @@ export default function TileSmImageTitleText({ image, alt, link, title, text }) 
           avatar={
             <GatsbyImage
               image={imageData}
-              alt={alt}
+              alt={alt || ''}
               style={{
                 height: '50px',
                 width: '50px',

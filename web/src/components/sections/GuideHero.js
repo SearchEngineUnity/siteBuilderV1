@@ -70,14 +70,14 @@ function GuideHero({ h1, subtitle, date, image, includeDisclaimer }) {
               <Typography variant="h1" gutterBottom>
                 {h1}
               </Typography>
-              <Subtitle blocks={subtitle} />
+              {subtitle && <Subtitle blocks={subtitle} />}
               {lastUpdatedDate && (
                 <Typography variant="body1" component="p" gutterBottom>
                   Last updated: {lastUpdatedDate.toLocaleDateString('en-US', options)}
                 </Typography>
               )}
               <br />
-              {includeDisclaimer && <Subtitle blocks={disclaimerText} />}
+              {includeDisclaimer && disclaimerText && <Subtitle blocks={disclaimerText} />}
             </Grid>
             <Grid item md={6} xs={12}>
               <Box display="flex" justifyContent={heroAlignment.heroImgAlignment}>
