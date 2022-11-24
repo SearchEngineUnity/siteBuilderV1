@@ -37,8 +37,8 @@ export default {
     {
       name: 'colgroup',
       type: 'array',
-      title:
-        'This sets the width of column in order from left to right. Use 0 for auto default sizing.',
+      title: 'Column Width Settings',
+      description: `Sets the column widths in order from left to right. Columns with '0' and columns that don't have an item will split the remaining width equally.`,
       of: [{ type: 'colWidth' }],
     },
     {

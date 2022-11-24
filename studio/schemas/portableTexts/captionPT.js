@@ -25,6 +25,11 @@ export default {
               icon: FaLink,
               render: InternalLocalRenderer,
             },
+            options: {
+              modal: {
+                width: 'medium',
+              },
+            },
             fields: [
               {
                 name: 'reference',

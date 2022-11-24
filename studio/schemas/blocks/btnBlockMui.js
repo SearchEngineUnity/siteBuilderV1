@@ -11,7 +11,7 @@ export default {
       title: 'Presentation Settings',
       options: {
         collapsible: true,
-        collapsed: true,
+        collapsed: false,
       },
     },
   ],

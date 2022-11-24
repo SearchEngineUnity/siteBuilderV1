@@ -24,6 +24,9 @@ export default {
         {
           type: 'navPhone',
         },
+        {
+          type: 'navClickableImage',
+        },
       ],
       validation: (Rule) => Rule.min(1).error('Must contain at least one item'),
     },

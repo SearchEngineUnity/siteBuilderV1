@@ -13,6 +13,11 @@ export default {
       validation: (Rule) => [Rule.required().error('Field is required')],
     },
     {
+      name: 'subject',
+      title: 'Form Subject Line',
+      type: 'string',
+    },
+    {
       name: 'formFields',
       title: 'Form Fields',
       type: 'array',

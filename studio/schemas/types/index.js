@@ -18,6 +18,7 @@ export { default as muiTypeStyleSet } from './muiTypeStyleSet';
 export { default as muiTypeStyleSetBtn } from './muiTypeStyleSetBtn';
 export { default as navBrand } from './navBrand';
 export { default as navGroup } from './navGroup';
+export { default as navClickableImage } from './navClickableImage';
 export { default as navItem } from './navItem';
 export { default as navJumpLink } from './navJumpLink';
 export { default as navPhone } from './navPhone';

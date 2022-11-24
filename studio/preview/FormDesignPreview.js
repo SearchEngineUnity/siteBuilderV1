@@ -122,7 +122,7 @@ const FormDesignPreview = ({ document }) => {
                         required="true"
                         variant={variant}
                         multiline
-                        rows="5"
+                        minRows="5"
                         placeholder="Please enter some stuff"
                       />
                       <FormHelperText>This is the helper text</FormHelperText>
