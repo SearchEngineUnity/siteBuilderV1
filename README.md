@@ -28,3 +28,4 @@
 2. run `gatsby develop`
 3. access local dev site on `localhost:8000`
 4. access graphiql on `localhost:8000/___graphql`
+5. to see a list of all available built pages please go to `localhost:8000/404`
