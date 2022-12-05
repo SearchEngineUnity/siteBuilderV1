@@ -69,6 +69,10 @@ module.exports = {
                 family: `Roboto`,
                 variants: [`100`, `300`, `400`, `500`, `700`, `900`],
               },
+              {
+                family: `Open+Sans`,
+                variants: [`300`, `400`, `500`, `600`, `700`, `800`],
+              },
             ],
           },
         },
