@@ -42,7 +42,7 @@ export const query = graphql`
           }
         }
       }
-      _rawGuideBody(resolveReferences: { maxDepth: 50 })
+      _rawGuideBody(resolveReferences: { maxDepth: 12 })
       toc {
         _key
         title
@@ -51,15 +51,15 @@ export const query = graphql`
       metaDescription
       heroImage {
         alt
-        _rawAsset(resolveReferences: { maxDepth: 10 })
+        _rawAsset(resolveReferences: { maxDepth: 1 })
         asset {
           url
         }
         maxHeight
         maxWidth
-        _rawCaption(resolveReferences: { maxDepth: 10 })
+        _rawCaption(resolveReferences: { maxDepth: 4 })
       }
-      _rawHeroSubtitle(resolveReferences: { maxDepth: 10 })
+      _rawHeroSubtitle(resolveReferences: { maxDepth: 4 })
     }
   }
 `;
