@@ -347,7 +347,7 @@ export const query = graphql`
               heading
               headingLevel
               titleAlignment
-              _rawFormStyle(resolveReferences: { maxDepth: 2 })
+              _rawFormStyle(resolveReferences: { maxDepth: 5 })
             }
           }
           idTag
@@ -589,7 +589,7 @@ export const query = graphql`
               _rawAsset(resolveReferences: { maxDepth: 1 })
               maxHeight
               maxWidth
-              _rawCaption(resolveReferences: { maxDepth: 2 })
+              _rawCaption(resolveReferences: { maxDepth: 4 })
             }
             ... on SanitySectionBlock {
               _key
@@ -796,7 +796,7 @@ export const query = graphql`
               heading
               headingLevel
               titleAlignment
-              _rawFormStyle(resolveReferences: { maxDepth: 2 })
+              _rawFormStyle(resolveReferences: { maxDepth: 5 })
             }
           }
           header {
@@ -1213,7 +1213,7 @@ export const query = graphql`
               _rawAsset(resolveReferences: { maxDepth: 1 })
               maxHeight
               maxWidth
-              _rawCaption(resolveReferences: { maxDepth: 2 })
+              _rawCaption(resolveReferences: { maxDepth: 4 })
             }
             ... on SanityHeroBlock {
               _key
@@ -1242,7 +1242,7 @@ export const query = graphql`
               heading
               headingLevel
               titleAlignment
-              _rawFormStyle(resolveReferences: { maxDepth: 2 })
+              _rawFormStyle(resolveReferences: { maxDepth: 5 })
             }
           }
           designSettings {
@@ -1656,7 +1656,7 @@ export const query = graphql`
               _rawAsset(resolveReferences: { maxDepth: 1 })
               maxHeight
               maxWidth
-              _rawCaption(resolveReferences: { maxDepth: 2 })
+              _rawCaption(resolveReferences: { maxDepth: 4 })
             }
             ... on SanitySectionBlock {
               _key
@@ -1685,7 +1685,7 @@ export const query = graphql`
               heading
               headingLevel
               titleAlignment
-              _rawFormStyle(resolveReferences: { maxDepth: 2 })
+              _rawFormStyle(resolveReferences: { maxDepth: 5 })
             }
           }
           designSettings {

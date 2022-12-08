@@ -16,6 +16,7 @@ export default {
       name: 'subject',
       title: 'Form Subject Line',
       type: 'string',
+      validation: (Rule) => [Rule.required().error('Field is required')],
     },
     {
       name: 'formFields',
