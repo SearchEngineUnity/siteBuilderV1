@@ -1820,7 +1820,6 @@ export const query = graphql`
       }
       nofollow
       noindex
-      canonical
       fbShareMetaPack {
         fbShareTitle
         fbShareDescription
