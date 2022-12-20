@@ -24,7 +24,7 @@ function TableOfContent({ toc }) {
   const { activeId } = useHeadsObserver();
 
   return (
-    <Box p={3} className={classes.root}>
+    <Box p={3} className={classes.root} display={{ xs: 'block' }}>
       <Typography component="p" variant="h4" gutterBottom>
         Table of Contents
       </Typography>

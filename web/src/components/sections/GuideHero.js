@@ -54,7 +54,7 @@ function GuideHero({ h1, subtitle, date, image, includeDisclaimer }) {
         id="hero"
         component="section"
         className={classes.section}
-        py={8}
+        py={5}
       >
         <Container maxWidth="lg" className={classes.column}>
           <Grid
