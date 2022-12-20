@@ -68,6 +68,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       padding: (props) =>
         props.mobileOuterPadding || theme.customSpacing.sectionOuter.padding.mobile,
+      backgroundImage: (props) =>
+        props.bleed && props.bgImage && props.repeat ? `url(${props.bgImage})` : 'none',
     },
     '& .pt-link': {
       color: (props) => props.linkColor,
@@ -98,6 +100,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       padding: (props) =>
         props.mobileInnerPadding || theme.customSpacing.sectionInner.padding.mobile,
+      backgroundImage: (props) =>
+        !props.bleed && props.bgImage && props.repeat ? `url(${props.bgImage})` : 'none',
     },
   },
 }));
