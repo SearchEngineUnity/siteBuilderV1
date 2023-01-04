@@ -59,8 +59,7 @@ export default {
       name: 'bleed',
       title: 'Set Background to Full Bleed',
       fieldset: 'background',
-      description:
-        'This setting is only applicable to desktop. All smaller screen will be default small',
+      description: 'The background (color or image) extends all the way to the edge of the screen',
       type: 'boolean',
       initialValue: true,
     },
