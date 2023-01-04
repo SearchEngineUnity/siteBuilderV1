@@ -44,8 +44,7 @@ export default {
       title: 'Background Color',
       type: 'reference',
       fieldset: 'background',
-      description:
-        'This will appear underneath the background image and will be shown when the image is not available.',
+      description: 'This will apply a background color',
       to: [{ type: 'colorOption' }],
     },
     {
@@ -53,7 +52,8 @@ export default {
       title: 'Background Image',
       type: 'image',
       fieldset: 'background',
-      description: 'Background Image will overlay on top of Background Color.',
+      description:
+        'Background Image will overlay on top of Background Color. The background image is removed for mobile unless it is a repeat background image',
     },
     {
       name: 'bleed',
