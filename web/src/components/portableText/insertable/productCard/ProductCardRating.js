@@ -70,7 +70,13 @@ function ProductCardRating({ rating }) {
 
   return (
     <Box py={1}>
-      <img src={starRating} alt="star-rating" height="24px" style={{ verticalAlign: 'middle' }} />
+      <img
+        src={starRating}
+        alt="star-rating"
+        height="24px"
+        style={{ verticalAlign: 'middle' }}
+        loading="eager"
+      />
       <Box
         component="span"
         px={1}
