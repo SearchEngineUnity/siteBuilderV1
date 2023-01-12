@@ -13,7 +13,7 @@ import {
   ClickAwayListener,
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import { navigate } from 'gatsby';
+import { navigate, Link as GLink } from 'gatsby';
 
 const NavGroup = ({ title, subGroup, location, position }) => {
   const [open, setOpen] = React.useState(false);
@@ -98,6 +98,8 @@ const NavGroup = ({ title, subGroup, location, position }) => {
                   onClick={() => handleNavigate(nav)}
                   key={_key}
                   selected={`/${nav.slug.current}` === location.pathname}
+                  component={GLink}
+                  to={`/${nav.slug.current}`}
                 >
                   {icon && (
                     <ListItemIcon>
