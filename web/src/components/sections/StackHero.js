@@ -249,7 +249,7 @@ function StructuredLrFlex({
               case key === 'videoBlock':
                 return <VideoBlock url={block.url} ratio={block.ratio} key={_key} />;
               case key === 'imageBlock':
-                return <ImgBlock {...mapFluidImgBlockToProps(block)} key={_key} />;
+                return <ImgBlock {...mapFluidImgBlockToProps(block)} key={_key} loading="eager" />;
               case key === 'heroBlock':
                 return (
                   <SectionBlock

@@ -7,7 +7,6 @@ import CaptionContent from '../portableText/serializer/CaptionSerializer';
 
 function FluidImgBlock({ image, alt, loading, maxHeight, maxWidth, caption }) {
   const loadingSetting = loading || 'lazy';
-  const imageData = getGatsbyImageData(image, {}, sanityConfig);
   const customMaxHeight = maxHeight || 'auto';
   const customMaxWidth = maxWidth || 'auto';
   const imageWidth = image.metadata.dimensions.width;
@@ -26,6 +25,7 @@ function FluidImgBlock({ image, alt, loading, maxHeight, maxWidth, caption }) {
   ];
 
   const minMaxWidth = `${Math.min(...widthArray)}px`;
+  const imageData = getGatsbyImageData(image.id, { maxWidth: minMaxWidth }, sanityConfig);
 
   // if (minMaxWidth === `${imageWidth}px`) {
   //   minMaxWidth = 'auto';
