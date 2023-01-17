@@ -110,7 +110,7 @@ const serializers = {
       return (
         <VerticalSpacingWrapper>
           <IndentFullWrapper>
-            <Illustration illustration={node} />
+            <Illustration illustration={node} loading="eager" />
           </IndentFullWrapper>
         </VerticalSpacingWrapper>
       );

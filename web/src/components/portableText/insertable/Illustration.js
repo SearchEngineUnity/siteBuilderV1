@@ -5,7 +5,8 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import sanityConfig from '../../../../sanityConfig';
 import CaptionContent from '../serializer/CaptionSerializer';
 
-function Illustration({ illustration }) {
+function Illustration({ illustration, loading }) {
+  const loadingSetting = loading || 'lazy';
   const imageFluid = illustration?.asset;
   const fluidProps = getGatsbyImageData(imageFluid, {}, sanityConfig);
   const customMaxHeight = illustration.maxHeight || 'auto';
@@ -43,6 +44,7 @@ function Illustration({ illustration }) {
           image={fluidProps}
           // eslint-disable-next-line no-unneeded-ternary
           alt={illustration.alt ? illustration.alt : ''}
+          loading={loadingSetting}
           objectFit="contain"
         />
         {illustration.caption && <CaptionContent blocks={illustration.caption} />}
