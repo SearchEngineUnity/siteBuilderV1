@@ -14,10 +14,16 @@ const useStyles = makeStyles({
     listStylePosition: 'inside',
     listStyle: 'none',
     paddingLeft: '0px',
+    marginBottom: '0px',
+  },
+  removeMargin: {
+    marginBottom: '0px',
+    marginTop: '0px',
+    paddingLeft: '16px',
   },
 });
 
-function SmartOrderedList({ listItems }) {
+function TableSmartOrderedList({ listItems }) {
   const classes = useStyles();
   const fontStyles = {
     h2: 'h2',
@@ -29,7 +35,7 @@ function SmartOrderedList({ listItems }) {
   const listStyle = fontStyles[selectedStyle] || 'body1';
 
   return (
-    <ol className={listStyle === 'body1' ? '' : classes.list}>
+    <ol className={listStyle === 'body1' ? classes.removeMargin : classes.list}>
       {listItems.map((li) => (
         <Typography variant={listStyle} component="li" key={li._key}>
           <ListContent blocks={li.content} />
@@ -39,4 +45,4 @@ function SmartOrderedList({ listItems }) {
   );
 }
 
-export default SmartOrderedList;
+export default TableSmartOrderedList;

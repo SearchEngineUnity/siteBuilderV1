@@ -12,9 +12,9 @@ import ListContent from '../serializer/ListSerializer';
 const useStyles = makeStyles({
   removeStyle: (props) => ({
     listStyle: props.image ? 'none' : 'initial',
-    paddingInlineStart: props.image ? 'calc(40px - 1.5em)' : '40px',
-    marginBlockStart: '1em',
-    marginBlockEnd: '1em',
+    paddingInlineStart: '0px',
+    marginBlockStart: '0px',
+    marginBlockEnd: '0px',
   }),
   imageBullet: (props) => ({
     padding: '0 0 0 1.5em',
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   }),
 });
 
-function SmartUnorderedList({ listItems, listStyleImage }) {
+function TableSmartUnorderedList({ listItems, listStyleImage }) {
   const image = listStyleImage?.asset?.url;
 
   const classes = useStyles({ image });
@@ -46,4 +46,4 @@ function SmartUnorderedList({ listItems, listStyleImage }) {
   );
 }
 
-export default SmartUnorderedList;
+export default TableSmartUnorderedList;
