@@ -102,22 +102,22 @@ export default {
     prepare({ heading, subheading, tileOption }) {
       switch (tileOption) {
         case '1':
-          return { title: heading || subheading || 'Grid Flex', subtitle: 'Grid: Rectangle Image' };
+          return { title: heading || subheading || 'Flex Grid', subtitle: 'Grid: Rectangle Image' };
         case '2':
-          return { title: heading || subheading || 'Grid Flex', subtitle: 'Grid: Circle Image' };
+          return { title: heading || subheading || 'Flex Grid', subtitle: 'Grid: Circle Image' };
         case '3':
           return {
-            title: heading || subheading || 'Grid Flex',
+            title: heading || subheading || 'Flex Grid',
             subtitle: 'Grid: Bordered Rectangle Image then Title',
           };
         case '4':
           return {
-            title: heading || subheading || 'Grid Flex',
+            title: heading || subheading || 'Flex Grid',
             subtitle: 'Grid: Bordered Full Image then Title then Text',
           };
         case '5':
           return {
-            title: heading || subheading || 'Grid Flex',
+            title: heading || subheading || 'Flex Grid',
             subtitle: 'Grid: Small Image and Title then Text',
           };
         default:
