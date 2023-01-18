@@ -84,7 +84,6 @@ function GuideHero({ h1, subtitle, date, image, includeDisclaimer }) {
                 <ImgBlock
                   {...mapFluidImgBlockToProps(image)}
                   loading="eager"
-                  maxHeight={400}
                   style={{ color: 'white' }}
                 />
               </Box>
