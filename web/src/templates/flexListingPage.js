@@ -36,7 +36,7 @@ export const query = graphql`
                 subheading
                 _rawSubtitle(resolveReferences: { maxDepth: 4 })
               }
-              _rawTiles(resolveReferences: { maxDepth: 7 })
+              _rawTiles(resolveReferences: { maxDepth: 10 })
               _rawFooter(resolveReferences: { maxDepth: 4 })
               layout
               headerAlignment
@@ -487,7 +487,7 @@ export const query = graphql`
                 subheading
                 _rawSubtitle(resolveReferences: { maxDepth: 4 })
               }
-              _rawTiles(resolveReferences: { maxDepth: 7 })
+              _rawTiles(resolveReferences: { maxDepth: 10 })
               _rawFooter(resolveReferences: { maxDepth: 4 })
               layout
               headerAlignment
@@ -934,7 +934,7 @@ export const query = graphql`
                 subheading
                 _rawSubtitle(resolveReferences: { maxDepth: 4 })
               }
-              _rawTiles(resolveReferences: { maxDepth: 7 })
+              _rawTiles(resolveReferences: { maxDepth: 10 })
               _rawFooter(resolveReferences: { maxDepth: 4 })
               layout
               headerAlignment
@@ -1378,7 +1378,7 @@ export const query = graphql`
                 subheading
                 _rawSubtitle(resolveReferences: { maxDepth: 4 })
               }
-              _rawTiles(resolveReferences: { maxDepth: 7 })
+              _rawTiles(resolveReferences: { maxDepth: 10 })
               _rawFooter(resolveReferences: { maxDepth: 4 })
               layout
               headerAlignment
