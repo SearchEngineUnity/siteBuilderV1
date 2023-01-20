@@ -42,7 +42,7 @@ export const query = graphql`
           }
         }
       }
-      _rawGuideBody(resolveReferences: { maxDepth: 12 })
+      _rawGuideBody(resolveReferences: { maxDepth: 16 })
       toc {
         _key
         title
@@ -64,6 +64,7 @@ export const query = graphql`
   }
 `;
 
+//      _rawGuideBody(resolveReferences: { maxDepth: 16 })
 const SoloGuidePage = ({ data, location }) => {
   const type = 'guide';
   useUpdateUrl();
