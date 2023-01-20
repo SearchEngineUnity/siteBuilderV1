@@ -4,6 +4,7 @@ import ProductCardGridPtTile from './ProductCardGridPtTile';
 import PtTile from '../../serializer/SmartGridSerializer';
 import Illustration from '../Illustration';
 import SmartUnorderedList from '../SmartUnorderedList';
+import SmartOrderedList from '../SmartOrderedList';
 import VideoEmbed from '../VideoEmbed';
 import ButtonJumpLink from '../../../buttons/ButtonJumpLink';
 import ButtonAffiliate from '../../../buttons/ButtonAffiliate';
@@ -43,6 +44,8 @@ function SmartGrid({ layout, tiles }) {
                 return <PtTile blocks={tile.content} />;
               case key === 'illustration':
                 return <Illustration illustration={tile} />;
+              case key === 'smartOrderedList':
+                return <SmartOrderedList {...tile} />;
               case key === 'smartUnorderedList':
                 return <SmartUnorderedList {...tile} />;
               case key === 'clickableImage':
