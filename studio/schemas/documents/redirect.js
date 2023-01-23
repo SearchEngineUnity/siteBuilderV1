@@ -89,12 +89,12 @@ export default {
   ],
   preview: {
     select: {
-      slug: 'redirectTo.slug.current',
-      type: 'redirectTo._type',
+      slug: 'redirectTo',
     },
     prepare({ slug }) {
       return {
-        title: `/${slug}`,
+        title: slug,
+        subtitle: 'redirect to',
       };
     },
   },
