@@ -28,6 +28,14 @@ export default {
       },
     },
     {
+      name: 'fixedFirstColumn',
+      type: 'boolean',
+      title: 'This table has a fixed first column',
+      options: {
+        layout: 'checkbox',
+      },
+    },
+    {
       name: 'minWidth',
       type: 'string',
       title: 'Minimum Table Width',
