@@ -15,24 +15,20 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TableContent from '../serializer/TableSerializer';
 import Illustration from './Illustration';
 import VideoEmbed from './VideoEmbed';
 import ClickableImage from './ClickableImage';
-import ButtonExternal from '../../buttons/ButtonExternal';
-import ButtonInternalLocal from '../../buttons/ButtonInternalLocal';
-import ButtonInternalGlobal from '../../buttons/ButtonInternalGlobal';
-import ButtonAffiliate from '../../buttons/ButtonAffiliate';
-import ButtonJumpLink from '../../buttons/ButtonJumpLink';
+import ConditionalButton from '../../buttons/ConditionalButton';
 import TableSmartOrderedList from './TableSmartOrderedList';
 import TableSmartUnorderedList from './TableSmartUnorderedList';
-import { mapMuiBtnToProps } from '../../../lib/mapToProps';
 
 const useStyles = makeStyles({
   table: (props) => ({
     tableLayout: 'fixed',
     minWidth: props.minWidth,
+    borderCollapse: 'separate',
   }),
   row: {
     verticalAlign: 'top',
@@ -56,8 +52,53 @@ const useStyles = makeStyles({
   },
 });
 
+const StickyTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.background.paper,
+    left: 0,
+    position: 'sticky',
+    zIndex: 1,
+    borderRight: '1px solid rgba(229, 228, 232, 1)',
+    overflow: 'hidden',
+  },
+  body: {
+    backgroundColor: theme.palette.background.paper,
+    left: 0,
+    position: 'sticky',
+    zIndex: 1,
+    borderRight: '1px solid rgba(229, 228, 232, 1)',
+    overflow: 'hidden',
+  },
+}))(TableCell);
+
+const SplitCellError = () => <td>this table should have column heading and row heading</td>;
+
+const componentMapping = {
+  tablePtCell: TableContent,
+  illustration: Illustration,
+  videoEmbed: VideoEmbed,
+  clickableImage: ClickableImage,
+  btnBlockMui: ConditionalButton,
+  smartOrderedList: TableSmartOrderedList,
+  smartUnorderedList: TableSmartUnorderedList,
+  splitCell: SplitCellError,
+};
+
+const propsMapping = (type, props) => {
+  switch (type) {
+    case 'tablePtCell':
+      return { blocks: props.copy };
+    case 'illustration':
+      return { illustration: props };
+    case 'btnBlockMui':
+      return { condition: props.link[0]._type, values: props };
+    default:
+      return props;
+  }
+};
+
 function SmartTable({ smartTable }) {
-  const { colHeading, rowHeading, title, minWidth, colgroup } = smartTable;
+  const { colHeading, rowHeading, title, minWidth, colgroup, fixedFirstColumn } = smartTable;
   const classes = useStyles({ minWidth });
 
   let thead = [];
@@ -86,6 +127,39 @@ function SmartTable({ smartTable }) {
           <TableHead>
             <TableRow key={thead._key}>
               {thead.cells.map((cell, index) => {
+                // check if a !cell is required if we are no longer applying a role?
+                if (fixedFirstColumn && index === 0) {
+                  if (cell._type === 'emptyCell') {
+                    return <StickyTableCell key={`${thead._key}-${index}`} role="cell" />;
+                  }
+                  if (cell._type === 'splitCell') {
+                    return (
+                      <StickyTableCell
+                        key={`${thead._key}-${index}`}
+                        style={{ overflow: 'hidden' }}
+                        scope="col"
+                        role="columnheader"
+                        className={classes.crossed}
+                      >
+                        <div className={classes.split}>
+                          <div className={`${classes.splitRight} ${classes.noWrap}`}>
+                            {cell.splitColHead}
+                          </div>
+                          <br />
+                          <div className={classes.noWrap}>{cell.splitRowHead}</div>
+                        </div>
+                      </StickyTableCell>
+                    );
+                  }
+                  const Component = componentMapping[cell._type];
+                  const values = propsMapping(cell._type, cell);
+                  return (
+                    // eslint-disable-next-line
+                  <StickyTableCell key={`${thead._key}-${index}`} style={{overflow: 'hidden'}} scope="col" role="columnheader">
+                      <Component {...values} />
+                    </StickyTableCell>
+                  );
+                }
                 if (cell._type === 'emptyCell') {
                   return <TableCell key={`${thead._key}-${index}`} role="cell" />;
                 }
@@ -108,96 +182,14 @@ function SmartTable({ smartTable }) {
                     </TableCell>
                   );
                 }
-                if (cell._type === 'tablePtCell') {
-                  return (
-                    // eslint-disable-next-line
-                  <TableCell key={`${thead._key}-${index}`} style={{overflow: 'hidden'}} scope="col" role="columnheader">
-                      <TableContent blocks={cell.copy} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'illustration') {
-                  return (
-                    // eslint-disable-next-line
-                  <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <Illustration illustration={cell} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'clickableImage') {
-                  return (
-                    // eslint-disable-next-line
-                  <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <ClickableImage {...cell} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'externalLink') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <ButtonExternal {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'internalLocal') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <ButtonInternalLocal {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'internalGlobal') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <ButtonInternalGlobal {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'affiliateLink') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <ButtonAffiliate {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'jumpLink') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <ButtonJumpLink {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'videoEmbed') {
-                  return (
-                    // eslint-disable-next-line
-                  <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <VideoEmbed {...cell} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'smartOrderedList') {
-                  return (
-                    // eslint-disable-next-line
-                  <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <TableSmartOrderedList {...cell} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'smartUnorderedList') {
-                  return (
-                    // eslint-disable-next-line
-                  <TableCell key={`${thead._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="col" role="columnheader">
-                      <TableSmartUnorderedList {...cell} />
-                    </TableCell>
-                  );
-                }
-
-                return <TableCell>Uh oh something went wrong.</TableCell>;
+                const Component = componentMapping[cell._type];
+                const values = propsMapping(cell._type, cell);
+                return (
+                  // eslint-disable-next-line
+                <TableCell key={`${thead._key}-${index}`} style={{overflow: 'hidden'}} scope="col" role="columnheader">
+                    <Component {...values} />
+                  </TableCell>
+                );
               })}
             </TableRow>
           </TableHead>
@@ -206,194 +198,66 @@ function SmartTable({ smartTable }) {
           {tbody.map((row) => (
             <TableRow key={row._key} className={classes.row}>
               {row.cells.map((cell, index) => {
+                const Component = componentMapping[cell._type];
+                const values = propsMapping(cell._type, cell);
                 if (rowHeading && index === 0) {
+                  if (fixedFirstColumn) {
+                    if (cell._type === 'emptyCell') {
+                      return <StickyTableCell key={`${thead._key}-${index}`} role="cell" />;
+                    }
+                    return (
+                      <StickyTableCell
+                        component="th"
+                        key={`${row._key}-${index}`}
+                        style={{ verticalAlign: 'top', overflow: 'hidden' }}
+                        scope="row"
+                        role="rowheader"
+                      >
+                        <Component {...values} />
+                      </StickyTableCell>
+                    );
+                  }
                   if (cell._type === 'emptyCell') {
                     return <TableCell key={`${thead._key}-${index}`} role="cell" />;
                   }
-                  if (cell._type === 'tablePtCell') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell className="MuiTableCell-head" component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <TableContent blocks={cell.copy} />
-                      </TableCell>
-                    );
+                  return (
+                    <TableCell
+                      component="th"
+                      key={`${row._key}-${index}`}
+                      style={{ verticalAlign: 'top', overflow: 'hidden' }}
+                      scope="row"
+                      role="rowheader"
+                    >
+                      <Component {...values} />
+                    </TableCell>
+                  );
+                }
+                if (fixedFirstColumn && index === 0) {
+                  if (cell._type === 'emptyCell') {
+                    return <StickyTableCell key={`${thead._key}-${index}`} role="cell" />;
                   }
-                  if (cell._type === 'illustration') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <Illustration illustration={cell} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'clickableImage') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <ClickableImage {...cell} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'externalLink') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <ButtonExternal {...mapMuiBtnToProps(cell)} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'internalLocal') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <ButtonInternalLocal {...mapMuiBtnToProps(cell)} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'internalGlobal') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <ButtonInternalGlobal {...mapMuiBtnToProps(cell)} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'affiliateLink') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <ButtonAffiliate {...mapMuiBtnToProps(cell)} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'jumpLink') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <ButtonJumpLink {...mapMuiBtnToProps(cell)} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'videoEmbed') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <VideoEmbed {...cell} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'smartOrderedList') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <TableSmartOrderedList {...cell} />
-                      </TableCell>
-                    );
-                  }
-                  if (cell._type === 'smartUnorderedList') {
-                    return (
-                      // eslint-disable-next-line
-                      <TableCell component="th" key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} scope="row" role="rowheader">
-                        <TableSmartUnorderedList {...cell} />
-                      </TableCell>
-                    );
-                  }
-
-                  return <TableCell component="th">oh oh something is wrong</TableCell>;
+                  return (
+                    <StickyTableCell
+                      key={`${row._key}-${index}`}
+                      style={{ verticalAlign: 'top', overflow: 'hidden' }}
+                      role="cell"
+                    >
+                      <Component {...values} />
+                    </StickyTableCell>
+                  );
                 }
                 if (cell._type === 'emptyCell') {
                   return <TableCell key={`${thead._key}-${index}`} role="cell" />;
                 }
-                if (cell._type === 'tablePtCell') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <TableContent blocks={cell.copy} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'illustration') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <Illustration illustration={cell} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'clickableImage') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <ClickableImage {...cell} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'externalLink') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <ButtonExternal {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'internalLocal') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <ButtonInternalLocal {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'internalGlobal') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <ButtonInternalGlobal {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'affiliateLink') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <ButtonAffiliate {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'btnBlockMui' && cell.link[0]._type === 'jumpLink') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <ButtonJumpLink {...mapMuiBtnToProps(cell)} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'videoEmbed') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <VideoEmbed {...cell} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'smartOrderedList') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <TableSmartOrderedList {...cell} />
-                    </TableCell>
-                  );
-                }
-                if (cell._type === 'smartUnorderedList') {
-                  return (
-                    // eslint-disable-next-line
-                    <TableCell key={`${row._key}-${index}`} style={{ verticalAlign: 'top', overflow: 'hidden' }} role="cell">
-                      <TableSmartUnorderedList {...cell} />
-                    </TableCell>
-                  );
-                }
-
-                return <TableCell>oh oh something is wrong</TableCell>;
+                return (
+                  <TableCell
+                    key={`${row._key}-${index}`}
+                    style={{ verticalAlign: 'top', overflow: 'hidden' }}
+                    role="cell"
+                  >
+                    <Component {...values} />
+                  </TableCell>
+                );
               })}
             </TableRow>
           ))}
