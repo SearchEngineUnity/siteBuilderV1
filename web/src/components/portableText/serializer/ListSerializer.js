@@ -3,9 +3,9 @@ import React from 'react';
 import { Typography, Box } from '@material-ui/core';
 import styled from 'styled-components';
 import VideoEmbed from '../insertable/VideoEmbed';
-import BasicTable from '../insertable/BasicTable';
 import Illustration from '../insertable/Illustration';
 import HighlightBox from '../insertable/highlightBox/HighlightBox';
+/* eslint-disable import/no-cycle */
 import SmartTable from '../insertable/SmartTable';
 import JumpLink from '../../link/JumpLink';
 import AffiliateLink from '../../link/LinkAffiliate';
@@ -132,15 +132,6 @@ const serializers = {
         <VerticalSpacingWrapper>
           <IndentFullWrapper>
             <Illustration illustration={node} />
-          </IndentFullWrapper>
-        </VerticalSpacingWrapper>
-      );
-    },
-    basicTable({ node }) {
-      return (
-        <VerticalSpacingWrapper>
-          <IndentFullWrapper>
-            <BasicTable basicTable={node} />
           </IndentFullWrapper>
         </VerticalSpacingWrapper>
       );

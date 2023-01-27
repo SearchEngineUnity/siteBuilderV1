@@ -25,6 +25,11 @@ const ThemeProvider = ({ children, data }) => {
       MuiTableCell: {
         head: {
           fontWeight: 600,
+          fontSize: '14px',
+        },
+        sizeSmall: {
+          padding: '6px 12px 6px 8px',
+          fontSize: '14px',
         },
       },
       MuiTypography: {
