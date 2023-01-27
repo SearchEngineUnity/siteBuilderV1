@@ -201,7 +201,6 @@ export default {
     { type: 'btnBlockMui' },
     { type: 'highlightBox' },
     { type: 'videoEmbed' },
-    { type: 'basicTable' },
     { type: 'smartTable' },
   ],
 };
