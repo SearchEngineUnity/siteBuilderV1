@@ -5,13 +5,10 @@ import styled from 'styled-components';
 import VideoEmbed from '../insertable/VideoEmbed';
 import Illustration from '../insertable/Illustration';
 import HighlightBox from '../insertable/highlightBox/HighlightBox';
+/* eslint-disable import/no-cycle */
 import SmartTable from '../insertable/SmartTable';
-import SmartGrid from '../insertable/SmartGrid/SmartGrid';
-import SmartUnorderedList from '../insertable/SmartUnorderedList';
-import SmartOrderedList from '../insertable/SmartOrderedList';
-import ProductCard from '../insertable/productCard/ProductCard';
-import AffiliateLink from '../../link/LinkAffiliate';
 import JumpLink from '../../link/JumpLink';
+import AffiliateLink from '../../link/LinkAffiliate';
 import ExternalLink from '../../link/LinkExternal';
 import InternalGlobal from '../../link/LinkInternalGlobal';
 import InternalLocal from '../../link/LinkInternalLocal';
@@ -25,8 +22,22 @@ import IndentFullWrapper from '../insertable/IndentFullWrapper';
 import VerticalSpacingWrapper from '../insertable/VerticalSpacingWrapper';
 import { mapMuiBtnToProps } from '../../../lib/mapToProps';
 
+const StyledH2 = styled(Typography)`
+  font-size: 28px;
+  margin-top: -12px;
+  line-height: 1;
+`;
+const StyledH3 = styled(Typography)`
+  font-size: 24.5px;
+`;
+const StyledH4 = styled(Typography)`
+  font-size: 21px;
+`;
+const StyledH5 = styled(Typography)`
+  font-size: 17.5px;
+`;
 const StyledTypography = styled(Typography)`
-  margin-top: 1.35em;
+  font-size: 14px;
 `;
 
 const serializers = {
@@ -35,9 +46,26 @@ const serializers = {
   types: {
     block(props) {
       switch (props.node.style) {
+        case 'h2':
+          return props.children[0] ? (
+            <StyledH2
+              gutterBottom
+              variant="h2"
+              id={
+                props.node.markDefs.length !== 0
+                  ? props.node.markDefs.filter((x) => x._type === 'hashId')[0]?.idTag
+                  : undefined
+              }
+            >
+              {props.children}
+            </StyledH2>
+          ) : (
+            <br />
+          );
+
         case 'h3':
           return props.children[0] ? (
-            <StyledTypography
+            <StyledH3
               gutterBottom
               variant="h3"
               id={
@@ -47,14 +75,14 @@ const serializers = {
               }
             >
               {props.children}
-            </StyledTypography>
+            </StyledH3>
           ) : (
             <br />
           );
 
         case 'h4':
           return props.children[0] ? (
-            <StyledTypography
+            <StyledH4
               gutterBottom
               variant="h4"
               id={
@@ -64,7 +92,24 @@ const serializers = {
               }
             >
               {props.children}
-            </StyledTypography>
+            </StyledH4>
+          ) : (
+            <br />
+          );
+
+        case 'h5':
+          return props.children[0] ? (
+            <StyledH5
+              gutterBottom
+              variant="h5"
+              id={
+                props.node.markDefs.length !== 0
+                  ? props.node.markDefs.filter((x) => x._type === 'hashId')[0]?.idTag
+                  : undefined
+              }
+            >
+              {props.children}
+            </StyledH5>
           ) : (
             <br />
           );
@@ -88,9 +133,9 @@ const serializers = {
 
         default:
           return props.children[0] ? (
-            <Typography gutterBottom variant="body1">
+            <StyledTypography gutterBottom variant="body1">
               {props.children}
-            </Typography>
+            </StyledTypography>
           ) : (
             <br />
           );
@@ -110,15 +155,6 @@ const serializers = {
         <VerticalSpacingWrapper>
           <IndentFullWrapper>
             <HighlightBox box={node} />
-          </IndentFullWrapper>
-        </VerticalSpacingWrapper>
-      );
-    },
-    smartTable({ node }) {
-      return (
-        <VerticalSpacingWrapper>
-          <IndentFullWrapper>
-            <SmartTable smartTable={node} />
           </IndentFullWrapper>
         </VerticalSpacingWrapper>
       );
@@ -168,21 +204,6 @@ const serializers = {
           return <p>under development</p>;
       }
     },
-    smartOrderedList({ node }) {
-      return <SmartOrderedList {...node} />; // check this later may need wrapper
-    },
-    smartUnorderedList({ node }) {
-      return <SmartUnorderedList {...node} />; // check this later may need wrapper
-    },
-    productCard({ node }) {
-      return (
-        <VerticalSpacingWrapper>
-          <IndentFullWrapper>
-            <ProductCard {...node} />
-          </IndentFullWrapper>
-        </VerticalSpacingWrapper>
-      );
-    },
     clickableImage({ node }) {
       return (
         <VerticalSpacingWrapper>
@@ -192,11 +213,9 @@ const serializers = {
         </VerticalSpacingWrapper>
       );
     },
-    smartGrid({ node }) {
-      return <SmartGrid {...node} />;
-    },
   },
   marks: {
+    hashId: ({ children }) => children,
     internalLocal: ({ mark, children }) => {
       const { slug = {} } = mark.reference;
       const { newTab, hashId, parameter } = mark;
@@ -241,11 +260,8 @@ const serializers = {
       );
     },
   },
-  listItem: ({ children }) => (
-    <Typography variant="body1" component="li">
-      {children}
-    </Typography>
-  ),
+  list: ({ children }) => null,
+  listItem: ({ children }) => null,
 };
 
 const BlockContent = ({ blocks }) => <BaseBlockContent blocks={blocks} serializers={serializers} />;

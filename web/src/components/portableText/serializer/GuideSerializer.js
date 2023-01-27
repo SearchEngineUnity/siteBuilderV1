@@ -4,7 +4,6 @@ import { Typography, Box } from '@material-ui/core';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import VideoEmbed from '../insertable/VideoEmbed';
-import BasicTable from '../insertable/BasicTable';
 import Illustration from '../insertable/Illustration';
 import HighlightBox from '../insertable/highlightBox/HighlightBox';
 import SmartTable from '../insertable/SmartTable';
@@ -164,15 +163,6 @@ const serializers = {
         <VerticalSpacingWrapper>
           <IndentFullWrapper>
             <Illustration illustration={node} />
-          </IndentFullWrapper>
-        </VerticalSpacingWrapper>
-      );
-    },
-    basicTable({ node }) {
-      return (
-        <VerticalSpacingWrapper>
-          <IndentFullWrapper>
-            <BasicTable basicTable={node} />
           </IndentFullWrapper>
         </VerticalSpacingWrapper>
       );

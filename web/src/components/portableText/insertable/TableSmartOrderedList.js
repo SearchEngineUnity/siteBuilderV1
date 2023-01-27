@@ -7,7 +7,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import ListContent from '../serializer/ListSerializer';
+import ListContent from '../serializer/TableListSerializer';
 
 const useStyles = makeStyles({
   list: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   removeMargin: {
     marginBottom: '0px',
     marginTop: '0px',
-    paddingLeft: '16px',
+    paddingLeft: '20px',
   },
 });
 
