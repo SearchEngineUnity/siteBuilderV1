@@ -15,10 +15,12 @@ const useStyles = makeStyles({
     listStyle: 'none',
     paddingLeft: '0px',
     marginBottom: '0px',
+    marginBlockStart: '0px',
+    marginBlockEnd: '0px',
   },
   removeMargin: {
-    marginBottom: '0px',
-    marginTop: '0px',
+    marginBlockStart: '0px',
+    marginBlockEnd: '0px',
     paddingLeft: '20px',
   },
 });

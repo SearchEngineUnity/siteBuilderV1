@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 // Basic Table is as per its name a very basic table.
 // Do not use this table to implement user interactive elements such as filter and sorting
-// It will not work as currently the key for each cell is generated in party by index of the cell in the array and
+// It will not work as currently the key for each cell is generated in part by index of the cell in the array and
 // not a true unique ID. Once we start to dynamically change the array. This will fail.
 
 import React from 'react';
