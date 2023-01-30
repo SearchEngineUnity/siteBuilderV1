@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import VideoEmbed from '../insertable/VideoEmbed';
 import Illustration from '../insertable/Illustration';
 import HighlightBox from '../insertable/highlightBox/HighlightBox';
-/* eslint-disable import/no-cycle */
-import SmartTable from '../insertable/SmartTable';
 import JumpLink from '../../link/JumpLink';
 import AffiliateLink from '../../link/LinkAffiliate';
 import ExternalLink from '../../link/LinkExternal';
@@ -24,17 +22,19 @@ import { mapMuiBtnToProps } from '../../../lib/mapToProps';
 
 const StyledH2 = styled(Typography)`
   font-size: 28px;
-  margin-top: -12px;
-  line-height: 1;
+  margin-bottom: 11px;
 `;
 const StyledH3 = styled(Typography)`
   font-size: 24.5px;
+  margin-bottom: 11px;
 `;
 const StyledH4 = styled(Typography)`
   font-size: 21px;
+  margin-bottom: 11px;
 `;
 const StyledH5 = styled(Typography)`
   font-size: 17.5px;
+  margin-bottom: 11px;
 `;
 const StyledTypography = styled(Typography)`
   font-size: 14px;
@@ -49,7 +49,6 @@ const serializers = {
         case 'h2':
           return props.children[0] ? (
             <StyledH2
-              gutterBottom
               variant="h2"
               id={
                 props.node.markDefs.length !== 0
@@ -66,7 +65,6 @@ const serializers = {
         case 'h3':
           return props.children[0] ? (
             <StyledH3
-              gutterBottom
               variant="h3"
               id={
                 props.node.markDefs.length !== 0
@@ -83,7 +81,6 @@ const serializers = {
         case 'h4':
           return props.children[0] ? (
             <StyledH4
-              gutterBottom
               variant="h4"
               id={
                 props.node.markDefs.length !== 0
@@ -133,9 +130,7 @@ const serializers = {
 
         default:
           return props.children[0] ? (
-            <StyledTypography gutterBottom variant="body1">
-              {props.children}
-            </StyledTypography>
+            <StyledTypography variant="body1">{props.children}</StyledTypography>
           ) : (
             <br />
           );

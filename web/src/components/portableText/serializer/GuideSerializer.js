@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const serializers = {
+  container: (props) => <article>{props.children}</article>,
   types: {
     block(props) {
       switch (props.node.style) {

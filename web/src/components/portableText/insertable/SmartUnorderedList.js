@@ -7,7 +7,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import ListContent from '../serializer/ListSerializer';
+import ListContent from '../serializer/TableListSerializer';
 
 const useStyles = makeStyles({
   removeStyle: (props) => ({

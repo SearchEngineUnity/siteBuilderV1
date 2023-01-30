@@ -25,7 +25,8 @@ const NoIndentUl = styled.ul`
   list-style-type: disc;
   margin-left: 1.4rem;
   padding-left: 0;
-  margin-top: 0;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
 
   & > li {
     position: relative;
@@ -36,7 +37,8 @@ const NoIndentOl = styled.ol`
   list-style-type: decimal;
   margin-left: 1.4rem;
   padding-left: 0;
-  margin-top: 0;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
 
   & > li {
     position: relative;
