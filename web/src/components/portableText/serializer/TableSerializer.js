@@ -51,7 +51,7 @@ const serializers = {
   types: {
     block(props) {
       return props.children[0] ? (
-        <TableTypography gutterBottom variant="body1">
+        <TableTypography gutterBottom variant="body1" className="pt-heading">
           {props.children}
         </TableTypography>
       ) : (

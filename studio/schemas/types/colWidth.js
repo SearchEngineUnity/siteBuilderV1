@@ -9,8 +9,7 @@ export default {
     {
       name: 'width',
       type: 'string',
-      title:
-        'Please enter value in px or % (including the unit) or use 0 without any units for auto sizing. Do not mix the usage of units for the same table.',
+      title: 'Please enter value in px.',
     },
   ],
   preview: {
