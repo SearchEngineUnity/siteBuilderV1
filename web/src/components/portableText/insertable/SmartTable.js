@@ -24,12 +24,14 @@ import ConditionalButton from '../../buttons/ConditionalButton';
 import TableSmartOrderedList from './TableSmartOrderedList';
 import TableSmartUnorderedList from './TableSmartUnorderedList';
 
-const useStyles = makeStyles({
-  table: (props) => ({
-    tableLayout: 'fixed',
-    minWidth: props.minWidth,
-    borderCollapse: 'separate',
+const useStyles = makeStyles((theme) => ({
+  container: (props) => ({
+    maxWidth: props.maxWidth,
   }),
+  table: {
+    tableLayout: 'fixed',
+    borderCollapse: 'separate',
+  },
   row: {
     verticalAlign: 'top',
   },
@@ -50,7 +52,13 @@ const useStyles = makeStyles({
   noWrap: {
     whiteSpace: 'nowrap',
   },
-});
+  heading: {
+    fontWeight: theme.typography.fontWeightMedium,
+    '& .pt-heading': {
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+  },
+}));
 
 const StickyTableCell = withStyles((theme) => ({
   head: {
@@ -71,7 +79,7 @@ const StickyTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const SplitCellError = () => <td>this table should have column heading and row heading</td>;
+const SplitCellError = () => 'Split Cell can only be used in apex position with double headings';
 
 const componentMapping = {
   tablePtCell: TableContent,
@@ -98,8 +106,9 @@ const propsMapping = (type, props) => {
 };
 
 function SmartTable({ smartTable }) {
-  const { colHeading, rowHeading, title, minWidth, colgroup, fixedFirstColumn } = smartTable;
-  const classes = useStyles({ minWidth });
+  const { colHeading, rowHeading, title, maxWidth, colgroup, fixedFirstColumn } = smartTable;
+
+  const classes = useStyles({ maxWidth });
 
   let thead = [];
   let tbody = smartTable.table.rows;
@@ -109,20 +118,21 @@ function SmartTable({ smartTable }) {
     tbody = smartTable.table.rows.slice(1);
   }
 
+  console.log(colgroup);
+
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.container}>
       <Table className={classes.table} size="small" aria-label={title} role="table">
-        {colgroup && (
-          <colgroup>
-            {colgroup.map((col, index) =>
-              col.width !== '0' ? (
-                <col span="1" style={{ width: col.width }} key={`colWidth-${index}`} />
-              ) : (
-                <col key={`colWidth-${index}`} span="1" style={{ width: 'auto' }} />
-              ),
-            )}
-          </colgroup>
-        )}
+        <colgroup>
+          {colgroup
+            ? colgroup.map((col, index) => (
+                <col span="1" width={col.width} key={`colWidth-${index}`} />
+              ))
+            : [...Array(tbody[0].cells.length)].map((x, index) => (
+                <col width="100px" key={`colWidth-${index}`} />
+              ))}
+        </colgroup>
+
         {colHeading && (
           <TableHead>
             <TableRow key={thead._key}>
@@ -142,11 +152,15 @@ function SmartTable({ smartTable }) {
                         className={classes.crossed}
                       >
                         <div className={classes.split}>
-                          <div className={`${classes.splitRight} ${classes.noWrap}`}>
+                          <div
+                            className={`${classes.splitRight} ${classes.noWrap} ${classes.heading}`}
+                          >
                             {cell.splitColHead}
                           </div>
                           <br />
-                          <div className={classes.noWrap}>{cell.splitRowHead}</div>
+                          <div className={`${classes.noWrap} ${classes.heading}`}>
+                            {cell.splitRowHead}
+                          </div>
                         </div>
                       </StickyTableCell>
                     );
@@ -155,7 +169,7 @@ function SmartTable({ smartTable }) {
                   const values = propsMapping(cell._type, cell);
                   return (
                     // eslint-disable-next-line
-                  <StickyTableCell key={`${thead._key}-${index}`} style={{overflow: 'hidden'}} scope="col" role="columnheader">
+                  <StickyTableCell key={`${thead._key}-${index}`} style={{overflow: 'hidden'}} scope="col" role="columnheader" className={classes.heading}>
                       <Component {...values} />
                     </StickyTableCell>
                   );
@@ -173,11 +187,15 @@ function SmartTable({ smartTable }) {
                       className={classes.crossed}
                     >
                       <div className={classes.split}>
-                        <div className={`${classes.splitRight} ${classes.noWrap}`}>
+                        <div
+                          className={`${classes.splitRight} ${classes.noWrap} ${classes.heading}`}
+                        >
                           {cell.splitColHead}
                         </div>
                         <br />
-                        <div className={classes.noWrap}>{cell.splitRowHead}</div>
+                        <div className={`${classes.noWrap} ${classes.heading}`}>
+                          {cell.splitRowHead}
+                        </div>
                       </div>
                     </TableCell>
                   );
@@ -186,7 +204,7 @@ function SmartTable({ smartTable }) {
                 const values = propsMapping(cell._type, cell);
                 return (
                   // eslint-disable-next-line
-                <TableCell key={`${thead._key}-${index}`} style={{overflow: 'hidden'}} scope="col" role="columnheader">
+                <TableCell key={`${thead._key}-${index}`} style={{overflow: 'hidden'}} scope="col" role="columnheader" className={classes.heading}>
                     <Component {...values} />
                   </TableCell>
                 );
@@ -212,6 +230,7 @@ function SmartTable({ smartTable }) {
                         style={{ verticalAlign: 'top', overflow: 'hidden' }}
                         scope="row"
                         role="rowheader"
+                        className={classes.heading}
                       >
                         <Component {...values} />
                       </StickyTableCell>
@@ -227,6 +246,7 @@ function SmartTable({ smartTable }) {
                       style={{ verticalAlign: 'top', overflow: 'hidden' }}
                       scope="row"
                       role="rowheader"
+                      className={classes.heading}
                     >
                       <Component {...values} />
                     </TableCell>

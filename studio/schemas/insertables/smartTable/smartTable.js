@@ -37,16 +37,16 @@ export default {
       },
     },
     {
-      name: 'minWidth',
+      name: 'maxWidth',
       type: 'string',
-      title: 'Minimum Table Width',
-      description: 'Please make sure to include px with the minimum width number. example 100px',
+      title: 'Max Table Width',
+      description: 'Please make sure to include px with the minimum width number (ie. 100px).',
     },
     {
       name: 'colgroup',
       type: 'array',
       title: 'Column Width Settings',
-      description: `Sets the column widths in order from left to right. Columns with '0' and columns that don't have an item will split the remaining width equally.`,
+      description: `Sets the column widths in order from left to right. This must be set in px.`,
       of: [{ type: 'colWidth' }],
     },
     {
