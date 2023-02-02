@@ -118,8 +118,6 @@ function SmartTable({ smartTable }) {
     tbody = smartTable.table.rows.slice(1);
   }
 
-  console.log(colgroup);
-
   return (
     <TableContainer component={Paper} className={classes.container}>
       <Table className={classes.table} size="small" aria-label={title} role="table">
