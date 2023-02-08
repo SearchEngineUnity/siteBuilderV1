@@ -179,9 +179,7 @@ const serializers = {
     smartTable({ node }) {
       return (
         <VerticalSpacingWrapper>
-          <IndentFullWrapper>
-            <SmartTable smartTable={node} />
-          </IndentFullWrapper>
+          <SmartTable smartTable={node} />
         </VerticalSpacingWrapper>
       );
     },

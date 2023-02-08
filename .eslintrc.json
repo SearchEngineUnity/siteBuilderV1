@@ -32,7 +32,7 @@
       "react": {
           "version": "detect"
       }
-  },
+    },
     "overrides": [
       {
         "files": ["node_modules/*"],
